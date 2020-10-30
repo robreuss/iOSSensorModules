@@ -1,0 +1,43 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Socket",
+        "repositoryURL": "https://github.com/IBM-Swift/BlueSocket.git",
+        "state": {
+          "branch": null,
+          "revision": "c9894fd117457f1d006575fbfb2fdfd6f79eac03",
+          "version": "1.0.200"
+        }
+      },
+      {
+        "package": "Cdns_sd",
+        "repositoryURL": "https://github.com/Bouke/Cdns_sd.git",
+        "state": {
+          "branch": null,
+          "revision": "b6dce342895400d0cd86726ad0fcdcad7abc6137",
+          "version": "2.0.0"
+        }
+      },
+      {
+        "package": "ElementalController",
+        "repositoryURL": "https://github.com/robreuss/ElementalController.git",
+        "state": {
+          "branch": null,
+          "revision": "aeb2cc033179e42f09ffbaad6dca0a133484639d",
+          "version": "0.0.110"
+        }
+      },
+      {
+        "package": "NetService",
+        "repositoryURL": "https://github.com/Bouke/NetService.git",
+        "state": {
+          "branch": null,
+          "revision": "ade5b7bac667f91da62dfbbdb918aa748ce06bc0",
+          "version": "0.7.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
