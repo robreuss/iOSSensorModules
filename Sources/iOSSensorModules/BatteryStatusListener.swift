@@ -13,7 +13,10 @@ public class BatteryStatusListener {
     var device: ServerDevice
     var elementBatteryStatusOn: Element?
     var errorManager: ErrorManager
-
+    
+    public typealias BatteryStatusHandler = ((BatteryStatusData) -> Void)?
+    public var receivedBatteryStatusHandler: BatteryStatusHandler?
+    
     public init(device: ServerDevice) {
         
         self.device = device

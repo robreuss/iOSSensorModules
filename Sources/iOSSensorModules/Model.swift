@@ -49,6 +49,12 @@ public struct MagnetometerData: Codable {
     
 }
 
+public struct BatteryStatusData: Codable {
+    
+    public var batteryLevel: Float
+    
+}
+
 public struct DeviceMotionData: Codable {
     
     public var attitude: Attitude
