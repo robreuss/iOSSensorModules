@@ -27,7 +27,24 @@ public class BatteryStatusListener {
         let elementBatteryLevel = device.attachElement(Element(identifier: ElementIdentifier.batteryStatus.rawValue, displayName: "batteryStatus", proto: .tcp, dataType: .Float))
         
         elementBatteryLevel.handler = { element, device in
-            logDebug("Got battery level: \(element.floatValue)")
+            
+            let jsonDecoder = JSONDecoder()
+            
+            do {
+                if let v = element.dataValue {
+                    if let handler = self.receivedBatteryStatusData {
+                        let batteryStatusData = try jsonDecoder.decode(BatteryStatusData.self, from: v)
+                        handler!(batteryStatusData)
+                        
+                    }
+                    
+                } else {
+                    // TODO: Error
+                }
+            }
+            catch {
+                self.errorManager.sendError(message: "JSON decoding error on element \(element.displayName): \(error)")
+            }
         }
         
     }
