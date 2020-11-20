@@ -14,7 +14,7 @@ public class BatteryStatusListener {
     var elementBatteryStatusOn: Element?
     var errorManager: ErrorManager
     
-    public typealias BatteryStatusHandler = ((BatteryStatusData) -> Void)?
+    public typealias BatteryStatusHandler = ((Float) -> Void)?
     public var receivedBatteryStatusData: BatteryStatusHandler?
     
     public init(device: ServerDevice) {
@@ -28,14 +28,10 @@ public class BatteryStatusListener {
         
         elementBatteryLevel.handler = { element, device in
             
-            let jsonDecoder = JSONDecoder()
-            
             do {
-                if let v = element.dataValue {
+                if let v = element.floatValue {
                     if let handler = self.receivedBatteryStatusData {
-                        let batteryStatusData = try jsonDecoder.decode(BatteryStatusData.self, from: v)
-                        handler!(batteryStatusData)
-                        
+                        handler!(v)
                     }
                     
                 } else {
