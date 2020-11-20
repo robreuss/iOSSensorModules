@@ -39,6 +39,11 @@ enum ElementIdentifier: Int8 {
     case photoRequest
     case imageData
     
+    // Battery Status
+    
+    case batteryStatusOn
+    case batteryStatus
+    
     /*
     // Camera
     case startVideo
