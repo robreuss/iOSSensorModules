@@ -15,7 +15,7 @@ public class BatteryStatusListener {
     var errorManager: ErrorManager
     
     public typealias BatteryStatusHandler = ((BatteryStatusData) -> Void)?
-    public var receivedBatteryStatusHandler: BatteryStatusHandler?
+    public var receivedBatteryStatusData: BatteryStatusHandler?
     
     public init(device: ServerDevice) {
         
