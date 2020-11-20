@@ -46,6 +46,7 @@ public class BatteryStatusBroadcaster {
                 if batteryStatusOn {
                     UIDevice.current.isBatteryMonitoringEnabled = true
                     NotificationCenter.default.addObserver(self, selector: Selector(("batteryLevelDidChange:")), name: UIDevice.batteryLevelDidChangeNotification, object: nil)
+                    sendBatteryLevel(level: UIDevice.current.batteryLevel)
                 } else {
                     UIDevice.current.isBatteryMonitoringEnabled = false
                     NotificationCenter.default.removeObserver(self, name: UIDevice.batteryLevelDidChangeNotification, object: nil)
@@ -55,12 +56,8 @@ public class BatteryStatusBroadcaster {
             }
         }
         
-        func batteryStateDidChange(notification: NSNotification){
-            //let level = UIDevice.current.batteryLevel
-        }
-
-        func batteryLevelDidChange(notification: NSNotification){
-            elementBatteryLevel?.floatValue = UIDevice.current.batteryLevel
+        func sendBatteryLevel(level: Float) {
+            elementBatteryLevel?.floatValue = level
             if let e = elementBatteryLevel {
                 do {
                     try self.device.send(element: e)
@@ -69,6 +66,15 @@ public class BatteryStatusBroadcaster {
                     errorManager.sendError(message: "Sending element \(e.displayName) resulted in error: \(error)")
                 }
             }
+        }
+        
+        func batteryStateDidChange(notification: NSNotification){
+            //let level = UIDevice.current.batteryLevel
+            sendBatteryLevel(level: UIDevice.current.batteryLevel)
+        }
+
+        func batteryLevelDidChange(notification: NSNotification){
+
         }
     }
     
