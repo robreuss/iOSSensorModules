@@ -34,6 +34,15 @@ public class BatteryStatusBroadcaster {
         
     }
     
+    @objc func batteryStateDidChange(notification: NSNotification){
+        sendBatteryState(state: Int8(UIDevice.current.batteryState.rawValue))
+    }
+
+    @objc func batteryLevelDidChange(notification: NSNotification){
+        sendBatteryLevel(level: UIDevice.current.batteryLevel)
+    }
+
+    
     func addHandlers() {
         
         handlersAdded = true
@@ -49,9 +58,9 @@ public class BatteryStatusBroadcaster {
                 if batteryStatusOn {
                     UIDevice.current.isBatteryMonitoringEnabled = true
                     NotificationCenter.default.addObserver(self, selector: Selector(("batteryLevelDidChange:")), name: UIDevice.batteryLevelDidChangeNotification, object: nil)
-                    sendBatteryLevel(level: UIDevice.current.batteryLevel)
+                    self.sendBatteryLevel(level: UIDevice.current.batteryLevel)
                     NotificationCenter.default.addObserver(self, selector: Selector(("batteryStateDidChange:")), name: UIDevice.batteryStateDidChangeNotification, object: nil)
-                    sendBatteryState(state: Int8(UIDevice.current.batteryState.rawValue))
+                    self.sendBatteryState(state: Int8(UIDevice.current.batteryState.rawValue))
                 } else {
                     UIDevice.current.isBatteryMonitoringEnabled = false
                     NotificationCenter.default.removeObserver(self, name: UIDevice.batteryLevelDidChangeNotification, object: nil)
@@ -62,36 +71,29 @@ public class BatteryStatusBroadcaster {
             }
         }
         
-        func sendBatteryLevel(level: Float) {
-            elementBatteryLevel?.floatValue = level
-            if let e = elementBatteryLevel {
-                do {
-                    try self.device.send(element: e)
-                }
-                catch {
-                    errorManager.sendError(message: "Sending element \(e.displayName) resulted in error: \(error)")
-                }
+    }
+    
+    func sendBatteryLevel(level: Float) {
+        elementBatteryLevel?.floatValue = level
+        if let e = elementBatteryLevel {
+            do {
+                try self.device.send(element: e)
+            }
+            catch {
+                errorManager.sendError(message: "Sending element \(e.displayName) resulted in error: \(error)")
             }
         }
-        
-        func sendBatteryState(state: Int8) {
-            elementBatteryState?.int8Value = state
-            if let e = elementBatteryState {
-                do {
-                    try self.device.send(element: e)
-                }
-                catch {
-                    errorManager.sendError(message: "Sending element \(e.displayName) resulted in error: \(error)")
-                }
+    }
+    
+    func sendBatteryState(state: Int8) {
+        elementBatteryState?.int8Value = state
+        if let e = elementBatteryState {
+            do {
+                try self.device.send(element: e)
             }
-        }
-        
-        func batteryStateDidChange(notification: NSNotification){
-            sendBatteryState(state: Int8(UIDevice.current.batteryState.rawValue))
-        }
-
-        func batteryLevelDidChange(notification: NSNotification){
-            sendBatteryLevel(level: UIDevice.current.batteryLevel)
+            catch {
+                errorManager.sendError(message: "Sending element \(e.displayName) resulted in error: \(error)")
+            }
         }
     }
     
