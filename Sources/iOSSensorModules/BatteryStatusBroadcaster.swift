@@ -51,6 +51,7 @@ public class BatteryStatusBroadcaster {
                     NotificationCenter.default.addObserver(self, selector: Selector(("batteryLevelDidChange:")), name: UIDevice.batteryLevelDidChangeNotification, object: nil)
                     sendBatteryLevel(level: UIDevice.current.batteryLevel)
                     NotificationCenter.default.addObserver(self, selector: Selector(("batteryStateDidChange:")), name: UIDevice.batteryStateDidChangeNotification, object: nil)
+                    sendBatteryState(state: Int8(UIDevice.current.batteryState.rawValue))
                 } else {
                     UIDevice.current.isBatteryMonitoringEnabled = false
                     NotificationCenter.default.removeObserver(self, name: UIDevice.batteryLevelDidChangeNotification, object: nil)
