@@ -16,7 +16,7 @@ public class ThermalStatusBroadcaster {
     let errorManager: ErrorManager
     var handlersAdded = false
     var elementThermalState: Element?
-    var thermalStatusOn: Bool = false
+    var thermalStatusOn: Bool = true
     
     public func stopThermalStatusUpdates() {
         logDebug("Stopping thermal status updates")
@@ -50,7 +50,6 @@ public class ThermalStatusBroadcaster {
         
         elementThermalStatusOn.handler = { element, device in
 
-            
             if let thermalStatusOn = element.boolValue {
                 
                 self.thermalStatusOn = thermalStatusOn
