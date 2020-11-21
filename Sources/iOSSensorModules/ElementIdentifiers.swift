@@ -45,6 +45,10 @@ enum ElementIdentifier: Int8 {
     case batteryLevel
     case batteryState
     
+    // Thermal
+    case thermalStatusOn
+    case thermalState
+    
     /*
     // Camera
     case startVideo
