@@ -42,7 +42,8 @@ enum ElementIdentifier: Int8 {
     // Battery Status
     
     case batteryStatusOn
-    case batteryStatus
+    case batteryLevel
+    case batteryState
     
     /*
     // Camera
