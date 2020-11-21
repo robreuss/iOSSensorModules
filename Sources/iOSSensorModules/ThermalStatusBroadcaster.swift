@@ -36,6 +36,7 @@ public class ThermalStatusBroadcaster {
     
     @objc
     func thermalStateChanged(notification: NSNotification) {
+        print("Got thermal state change in ThermalStatusBroadcaster")
         if let processInfo = notification.object as? ProcessInfo {
             if self.thermalStatusOn { self.sendThermalState(state: Int8(UIDevice.current.batteryState.rawValue)) }
         }
@@ -67,6 +68,7 @@ public class ThermalStatusBroadcaster {
     }
     
     func sendThermalState(state: Int8) {
+        print("Attempting to send thermal state")
         elementThermalState?.int8Value = state
         if let e = elementThermalState {
             do {
