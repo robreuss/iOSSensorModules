@@ -34,6 +34,8 @@ public class BatteryStatusBroadcaster {
         
     }
     
+
+    
     @objc func batteryStateDidChange(notification: NSNotification){
         sendBatteryState(state: Int8(UIDevice.current.batteryState.rawValue))
     }
@@ -41,7 +43,6 @@ public class BatteryStatusBroadcaster {
     @objc func batteryLevelDidChange(notification: NSNotification){
         sendBatteryLevel(level: UIDevice.current.batteryLevel)
     }
-
     
     func addHandlers() {
         
@@ -52,19 +53,40 @@ public class BatteryStatusBroadcaster {
         elementBatteryState = device.attachElement(Element(identifier: ElementIdentifier.batteryState.rawValue, displayName: "batteryState", proto: .tcp, dataType: .Int8))
         
         elementBatteryStatusOn.handler = { element, device in
+
             
             if let batteryStatusOn = element.boolValue {
                 
                 if batteryStatusOn {
+                    
                     UIDevice.current.isBatteryMonitoringEnabled = true
-                    NotificationCenter.default.addObserver(self, selector: Selector(("batteryLevelDidChange:")), name: UIDevice.batteryLevelDidChangeNotification, object: nil)
+                    
+                    let batteryLevelObserver = NotificationCenter.default.addObserver(
+                                    forName: UIDevice.batteryLevelDidChangeNotification,
+                                     object: nil,
+                                      queue: nil) { notification in
+                        self.sendBatteryLevel(level: UIDevice.current.batteryLevel)
+                        
+                    }
+                    
+                    let batteryStateObserver = NotificationCenter.default.addObserver(
+                                    forName: UIDevice.batteryLevelDidChangeNotification,
+                                     object: nil,
+                                      queue: nil) { notification in
+                        self.sendBatteryLevel(level: UIDevice.current.batteryLevel)
+                        
+                    }
+                    //NotificationCenter.default.addObserver(self, selector: Selector("batteryStateDidChange:"), name: UIDevice.batteryStateDidChangeNotification, object: nil)
+                    //NotificationCenter.default.addObserver(self, selector: Selector("batteryLevelDidChange:"), name: UIDevice.batteryLevelDidChangeNotification, object: nil)
                     self.sendBatteryLevel(level: UIDevice.current.batteryLevel)
-                    NotificationCenter.default.addObserver(self, selector: Selector(("batteryStateDidChange:")), name: UIDevice.batteryStateDidChangeNotification, object: nil)
                     self.sendBatteryState(state: Int8(UIDevice.current.batteryState.rawValue))
+                    
                 } else {
+                    
                     UIDevice.current.isBatteryMonitoringEnabled = false
                     NotificationCenter.default.removeObserver(self, name: UIDevice.batteryLevelDidChangeNotification, object: nil)
                     NotificationCenter.default.removeObserver(self, name: UIDevice.batteryStateDidChangeNotification, object: nil)
+                    
                 }
             } else {
                 // TODO: Error
