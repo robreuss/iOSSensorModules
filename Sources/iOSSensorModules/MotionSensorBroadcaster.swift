@@ -54,7 +54,7 @@ public class MotionSensorBroadcaster {
         elementDeviceMotionOn.handler = { element, device in
             
             if !device.isConnected {
-                self.stopDeviceMotionUpdates()()
+                self.stopDeviceMotionUpdates()
                 return
             }
             
