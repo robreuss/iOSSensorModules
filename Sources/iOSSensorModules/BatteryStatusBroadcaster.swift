@@ -28,8 +28,6 @@ public class BatteryStatusBroadcaster {
         
         errorManager = ErrorManager(device: device)
         
-        errorManager.sendError(message: "This is an error message")
-        
         addHandlers()
         
     }
