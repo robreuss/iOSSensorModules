@@ -48,6 +48,10 @@ public class ThermalStatusBroadcaster {
         elementThermalState = device.attachElement(Element(identifier: ElementIdentifier.thermalState.rawValue, displayName: "thermalState", proto: .tcp, dataType: .Int8))
         
         elementThermalStatusOn.handler = { element, device in
+            
+            if !device.isConnected {
+                return
+            }
 
             if let tso = element.boolValue {
                 

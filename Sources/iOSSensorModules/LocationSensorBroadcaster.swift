@@ -74,6 +74,10 @@ public class LocationSensorBroadcaster: NSObject, CLLocationManagerDelegate {
     }
     
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if !device.isConnected {
+            self.locationManager.stopUpdatingLocation()
+            return
+        }
         if let elementLocationData = self.device.getElementWith(identifier: ElementIdentifier.locationData.rawValue) {
             for location in locations {
                 // We don't support floor because it's an optional
@@ -97,6 +101,10 @@ public class LocationSensorBroadcaster: NSObject, CLLocationManagerDelegate {
     }
     
     public func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        if !device.isConnected {
+            self.locationManager.stopUpdatingHeading()
+            return
+        }
         if let elementHeadingData = self.device.getElementWith(identifier: ElementIdentifier.headingData.rawValue) {
             let headingData = HeadingData.init(magneticHeading: newHeading.magneticHeading, trueHeading: newHeading.trueHeading)
             do {
