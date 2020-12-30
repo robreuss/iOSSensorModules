@@ -51,6 +51,10 @@ public class MotionSensorBroadcaster {
         
         let elementDeviceMotionOn = device.attachElement(Element(identifier: ElementIdentifier.deviceMotionOn.rawValue, displayName: "deviceMotionOn", proto: .tcp, dataType: .Double))
         let elementDeviceMotionData = device.attachElement(Element(identifier: ElementIdentifier.deviceMotionData.rawValue, displayName: "deviceMotionData", proto: .tcp, dataType: .Data))
+        device.events.deviceDisconnected.handler = { _ in
+            logDebug("iOS Sensors client disconnected")
+            self.stopDeviceMotionUpdates()
+        }
         elementDeviceMotionOn.handler = { element, device in
             
             if device.isConnected == false {
