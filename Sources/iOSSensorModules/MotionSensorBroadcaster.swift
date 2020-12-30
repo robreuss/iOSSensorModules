@@ -48,14 +48,17 @@ public class MotionSensorBroadcaster {
     func addHandlers() {
         
         handlersAdded = true
-        
-        let elementDeviceMotionOn = device.attachElement(Element(identifier: ElementIdentifier.deviceMotionOn.rawValue, displayName: "deviceMotionOn", proto: .tcp, dataType: .Double))
-        let elementDeviceMotionData = device.attachElement(Element(identifier: ElementIdentifier.deviceMotionData.rawValue, displayName: "deviceMotionData", proto: .tcp, dataType: .Data))
+
         device.events.deviceDisconnected.handler = { [self] _ in
             logDebug("iOS Sensors client disconnected")
             device.isConnected = false
             self.stopDeviceMotionUpdates()
+            self.stopGyroUpdates()
+            self.stopAccelerometerUpdates()
         }
+        
+        let elementDeviceMotionOn = device.attachElement(Element(identifier: ElementIdentifier.deviceMotionOn.rawValue, displayName: "deviceMotionOn", proto: .tcp, dataType: .Double))
+        let elementDeviceMotionData = device.attachElement(Element(identifier: ElementIdentifier.deviceMotionData.rawValue, displayName: "deviceMotionData", proto: .tcp, dataType: .Data))
         elementDeviceMotionOn.handler = { element, device in
 
             if let deviceMotionUpdateInterval = element.doubleValue {
@@ -104,12 +107,7 @@ public class MotionSensorBroadcaster {
         let elementGyroOn = device.attachElement(Element(identifier: ElementIdentifier.gyroOn.rawValue, displayName: "gyroOn", proto: .tcp, dataType: .Double))
         let elementGyroData = device.attachElement(Element(identifier: ElementIdentifier.gyroData.rawValue, displayName: "gyroData", proto: .tcp, dataType: .Data))
         elementGyroOn.handler = { element, device in
-            
-            if !device.isConnected {
-                self.stopGyroUpdates()
-                return
-            }
-            
+
             if let gyroUpdateInterval = element.doubleValue {
                 
                 if gyroUpdateInterval == 0.0 {
@@ -149,12 +147,7 @@ public class MotionSensorBroadcaster {
         let elementAccelerometerOn = device.attachElement(Element(identifier: ElementIdentifier.accelerometerOn.rawValue, displayName: "accelerometerOn", proto: .tcp, dataType: .Double))
         let elementAccelerometerData = device.attachElement(Element(identifier: ElementIdentifier.accelerometerData.rawValue, displayName: "accelerometerData", proto: .tcp, dataType: .Data))
         elementAccelerometerOn.handler = { element, device in
-            
-            if !device.isConnected {
-                self.stopAccelerometerUpdates()
-                return
-            }
-            
+
             if let accelerometerUpdateInterval = element.doubleValue {
                 
                 if accelerometerUpdateInterval == 0.0 {
