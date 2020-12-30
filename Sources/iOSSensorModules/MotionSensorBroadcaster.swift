@@ -53,12 +53,11 @@ public class MotionSensorBroadcaster {
         let elementDeviceMotionData = device.attachElement(Element(identifier: ElementIdentifier.deviceMotionData.rawValue, displayName: "deviceMotionData", proto: .tcp, dataType: .Data))
         elementDeviceMotionOn.handler = { element, device in
             
-            /*
             if device.isConnected == false {
                 self.stopDeviceMotionUpdates()
                 return
             }
-            */
+            
             if let deviceMotionUpdateInterval = element.doubleValue {
                 
                 if deviceMotionUpdateInterval == 0.0 {
