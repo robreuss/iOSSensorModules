@@ -14,9 +14,9 @@ public struct MagneticField: Codable {
 }
 
 public struct Attitude: Codable {
-    public var pitch: Double
-    public var roll: Double
-    public var yaw: Double
+    public var pitch: Float
+    public var roll: Float
+    public var yaw: Float
 }
 
 public struct ThreeAxis: Codable {
