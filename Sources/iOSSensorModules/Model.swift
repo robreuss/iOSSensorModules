@@ -20,15 +20,15 @@ public struct Attitude: Codable {
 }
 
 public struct ThreeAxis: Codable {
-    public var x: Double
-    public var y: Double
-    public var z: Double
+    public var x: Float
+    public var y: Float
+    public var z: Float
 }
 
 public struct HeadingData: Codable {
     
-    public var magneticHeading: Double
-    public var trueHeading: Double
+    public var magneticHeading: Float
+    public var trueHeading: Float
 }
 
 public struct GyroData: Codable {

@@ -75,10 +75,10 @@ public class MotionSensorBroadcaster {
                         
                         if let md = motionData {
                             let attitude = Attitude.init(pitch: Float(md.attitude.pitch), roll: Float(md.attitude.roll), yaw: Float(md.attitude.yaw))
-                            let rotationRate = ThreeAxis.init(x: (md.rotationRate.x), y: (md.rotationRate.y), z: (md.rotationRate.z))
-                            let userAcceleration = ThreeAxis.init(x: md.userAcceleration.x, y: md.userAcceleration.y, z: md.userAcceleration.z)
-                            let gravity = ThreeAxis.init(x: md.gravity.x, y: md.gravity.y, z: md.gravity.z)
-                            let field = ThreeAxis.init(x: md.magneticField.field.x, y: md.magneticField.field.y, z: md.magneticField.field.z)
+                            let rotationRate = ThreeAxis.init(x: Float(md.rotationRate.x), y: Float(md.rotationRate.y), z: Float(md.rotationRate.z))
+                            let userAcceleration = ThreeAxis.init(x: Float(md.userAcceleration.x), y: Float(md.userAcceleration.y), z: Float(md.userAcceleration.z))
+                            let gravity = ThreeAxis.init(x: Float(md.gravity.x), y: Float(md.gravity.y), z: Float(md.gravity.z))
+                            let field = ThreeAxis.init(x: Float(md.magneticField.field.x), y: Float(md.magneticField.field.y), z: Float(md.magneticField.field.z))
                             let magneticField = MagneticField.init(field: field, accuracy: md.magneticField.accuracy.rawValue)
                             let data = DeviceMotionData.init(attitude: attitude, rotationRate: rotationRate, userAcceleration: userAcceleration, gravity: gravity, magneticField: magneticField, heading: md.heading)
                             do {
@@ -120,7 +120,7 @@ public class MotionSensorBroadcaster {
                     self.motionManager.startGyroUpdates(to: OperationQueue.main, withHandler: { (gyroData, error) in
                         
                         if let gd = gyroData {
-                            let data = GyroData.init(rotationRate: ThreeAxis.init(x: gd.rotationRate.x, y: gd.rotationRate.y, z: gd.rotationRate.z))
+                            let data = GyroData.init(rotationRate: ThreeAxis.init(x: Float(gd.rotationRate.x), y: Float(gd.rotationRate.y), z: Float(gd.rotationRate.z)))
                             do {
                                 let jsonData = try self.jsonEncoder.encode(data)
                                 elementGyroData.dataValue = jsonData
@@ -160,7 +160,7 @@ public class MotionSensorBroadcaster {
                     self.motionManager.startAccelerometerUpdates(to: OperationQueue.main, withHandler: { (accelerometerData, error) in
                         
                         if let ad = accelerometerData {
-                            let data = AccelerometerData.init(acceleration: ThreeAxis.init(x: ad.acceleration.x, y: ad.acceleration.y, z: ad.acceleration.z))
+                            let data = AccelerometerData.init(acceleration: ThreeAxis.init(x: Float(ad.acceleration.x), y: Float(ad.acceleration.y), z: Float(ad.acceleration.z)))
                             do {
                                 let jsonData = try self.jsonEncoder.encode(data)
                                 elementAccelerometerData.dataValue = jsonData

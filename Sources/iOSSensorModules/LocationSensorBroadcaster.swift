@@ -106,7 +106,7 @@ public class LocationSensorBroadcaster: NSObject, CLLocationManagerDelegate {
             return
         }
         if let elementHeadingData = self.device.getElementWith(identifier: ElementIdentifier.headingData.rawValue) {
-            let headingData = HeadingData.init(magneticHeading: newHeading.magneticHeading, trueHeading: newHeading.trueHeading)
+            let headingData = HeadingData.init(magneticHeading: Float(newHeading.magneticHeading), trueHeading: Float(newHeading.trueHeading))
             do {
                 let jsonData = try self.jsonEncoder.encode(headingData)
                 elementHeadingData.dataValue = jsonData
