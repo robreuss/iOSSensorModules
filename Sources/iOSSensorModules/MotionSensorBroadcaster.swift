@@ -74,7 +74,7 @@ public class MotionSensorBroadcaster {
                     self.motionManager.startDeviceMotionUpdates(using: CMAttitudeReferenceFrame.xMagneticNorthZVertical, to: OperationQueue.main, withHandler: { (motionData, error) in
                         
                         if let md = motionData {
-                            let attitude = Attitude.init(pitch: md.attitude.pitch, roll: md.attitude.roll, yall: md.attitude.yaw)
+                            let attitude = Attitude.init(pitch: md.attitude.pitch, roll: md.attitude.roll, yaw: md.attitude.yaw)
                             let rotationRate = ThreeAxis.init(x: (md.rotationRate.x), y: (md.rotationRate.y), z: (md.rotationRate.z))
                             let userAcceleration = ThreeAxis.init(x: md.userAcceleration.x, y: md.userAcceleration.y, z: md.userAcceleration.z)
                             let gravity = ThreeAxis.init(x: md.gravity.x, y: md.gravity.y, z: md.gravity.z)
