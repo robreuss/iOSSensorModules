@@ -30,6 +30,8 @@ public class BatteryStatusListener {
         let elementBatteryLevel = device.attachElement(Element(identifier: ElementIdentifier.batteryLevel.rawValue, displayName: "batteryLevel", proto: .tcp, dataType: .Float))
         let elementBatteryState = device.attachElement(Element(identifier: ElementIdentifier.batteryState.rawValue, displayName: "batteryState", proto: .tcp, dataType: .Int8))
         
+        print("Battery sensor listener eid: \(ElementIdentifier.batteryLevel.rawValue)")
+        
         elementBatteryLevel.handler = { element, device in
             do {
                 if let v = element.floatValue {
