@@ -11,21 +11,12 @@
         }
       },
       {
-        "package": "Cdns_sd",
-        "repositoryURL": "https://github.com/Bouke/Cdns_sd.git",
-        "state": {
-          "branch": null,
-          "revision": "b6dce342895400d0cd86726ad0fcdcad7abc6137",
-          "version": "2.0.0"
-        }
-      },
-      {
         "package": "ElementalController",
         "repositoryURL": "https://github.com/robreuss/ElementalController.git",
         "state": {
-          "branch": null,
-          "revision": "aeb2cc033179e42f09ffbaad6dca0a133484639d",
-          "version": "0.0.110"
+          "branch": "develop",
+          "revision": "7d66b38d0524d8895e1e65cbd9c5d25251854ec6",
+          "version": null
         }
       },
       {
@@ -33,8 +24,8 @@
         "repositoryURL": "https://github.com/Bouke/NetService.git",
         "state": {
           "branch": null,
-          "revision": "ade5b7bac667f91da62dfbbdb918aa748ce06bc0",
-          "version": "0.7.0"
+          "revision": "08e1f7663fd4b09b9f4ad165be89704c7cd2e3f8",
+          "version": "0.8.1"
         }
       }
     ]
