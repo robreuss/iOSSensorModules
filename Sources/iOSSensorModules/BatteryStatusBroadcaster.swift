@@ -54,10 +54,12 @@ public class BatteryStatusBroadcaster {
         
         elementBatteryStatusOn.handler = { element, device in
 
+            /*
             if !self.device.isConnected {
                 UIDevice.current.isBatteryMonitoringEnabled = false
                 return
             }
+            */
             
             if let batteryStatusOn = element.boolValue {
                 
