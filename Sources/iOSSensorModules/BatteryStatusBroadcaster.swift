@@ -50,6 +50,8 @@ public class BatteryStatusBroadcaster {
         elementBatteryLevel = device.attachElement(Element(identifier: ElementIdentifier.batteryLevel.rawValue, displayName: "batteryLevel", proto: .tcp, dataType: .Float))
         elementBatteryState = device.attachElement(Element(identifier: ElementIdentifier.batteryState.rawValue, displayName: "batteryState", proto: .tcp, dataType: .Int8))
         
+        print("Battery sensor listener eid: \(ElementIdentifier.batteryLevel.rawValue)")
+        
         elementBatteryStatusOn.handler = { element, device in
 
             if !device.isConnected {
